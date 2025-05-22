@@ -14,8 +14,9 @@ class Variable:
         funcs = [self.creator]
         while funcs:
             f = funcs.pop()  # 1. Get a function
-            x, y = f.input, f.output  # 2. Get the function's input/output
-            x.grad = f.backward(y.grad)  # 3. Call the function's backward
+            if f is not None:
+                x, y = f.input, f.output  # 2. Get the function's input/output
+                x.grad = f.backward(y.grad)  # 3. Call the function's backward
 
             if x.creator is not None:
                 funcs.append(x.creator)

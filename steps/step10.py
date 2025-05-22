@@ -1,4 +1,5 @@
 import unittest
+
 import numpy as np
 
 
@@ -22,8 +23,9 @@ class Variable:
         funcs = [self.creator]
         while funcs:
             f = funcs.pop()
-            x, y = f.input, f.output
-            x.grad = f.backward(y.grad)
+            if f is not None:
+                x, y = f.input, f.output
+                x.grad = f.backward(y.grad)
 
             if x.creator is not None:
                 funcs.append(x.creator)
